@@ -10,7 +10,7 @@ const books = [
 ];
 
 app.get('/', (req, res) => {
-  res.status(200).send('Node Course');
+  res.status(200).send('WELCOME TO THE API BOOK');
 });
 
 app.get('/books', (req, res) => {
