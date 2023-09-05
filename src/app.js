@@ -13,22 +13,11 @@ app.use(express.json());
 
 routes(app)
 
-
 app.get('/books/:id', (req, res) => {
   let index = findBook(req.params.id);
   res.json(books[index]);
 });
 
-app.post('/books', (req, res) => {
-  books.push(req.body);
-  res.status(201).send('Book has been successfully registered');
-});
-
-app.put('/books/:id', (req, res) => {
-  let index = findBook(req.params.id);
-  books[index].title = req.body.title;
-  res.json(books);
-});
 
 app.delete('/books/:id', (req, res) => {
   let { id } = req.params;

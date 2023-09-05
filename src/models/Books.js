@@ -6,9 +6,7 @@ const bookSchema = new mongoose.Schema({
     author:{type:String, required:true},
     publisher:{type:String, require:true},
     pageCount:{type:Number}
-}
-)
+})
 
 let books = mongoose.model('mybook',bookSchema)
-
 export default books
