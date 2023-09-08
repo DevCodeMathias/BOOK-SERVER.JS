@@ -23,7 +23,6 @@ class AuthorController{
     });
   };
   
-  
   static registerAuthor = (req, res) => {
     let author = new authors(req.body);
     author.save()
@@ -76,6 +75,8 @@ class AuthorController{
       res.status(500).send({ message: err.message });
     }
   };
+
+
 }
 
 export default AuthorController
