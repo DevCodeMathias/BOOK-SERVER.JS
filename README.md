@@ -42,6 +42,7 @@ Send a DELETE request to [http://localhost:3000/books/:id](http://localhost:3000
 Send a DELETE request to [http://localhost:3000/authors/:id](http://localhost:3000/authors/:id).
 
 ## Project Structure
+This project follows the MVC (Model-View-Controller) architectural pattern, which helps in organizing the codebase into separate components. Here's a brief overview of the project's structure:
 
 - `routes.js`: Contains the route definitions and their respective controllers.
 - `booksController.js`: Control logic for book operations.
