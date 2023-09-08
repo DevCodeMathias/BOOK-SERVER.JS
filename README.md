@@ -50,6 +50,27 @@ Send a DELETE request to [http://localhost:3000/authors/:id](http://localhost:30
 - `author.js`: Model and schema for authors.
 - `DbConnect.js`: MongoDB connection configuration.
 
+## JSON Format
+
+This API uses JSON (JavaScript Object Notation) for data exchange. When interacting with the API, ensure that your requests and responses are formatted in JSON. Below are examples of the JSON structures for books and authors:
+
+### Book JSON Structure:
+
+```json
+[
+    {
+        "_id": "64fa88ef1c468255e84dce64",
+        "title": "To Kill a Mockingbird",
+        "author": {
+            "_id": "64fa88a81c468255e84dce61",
+            "name": "Harper Lee"
+        },
+        "publisher": "J.B. Lippincott & Co.",
+        "pageCount": 281,
+    }
+]
+```
+
 ## Testing with Postman
 
 You can use [Postman](https://www.postman.com/) to test the API endpoints. Import the provided Postman collection for easy testing.
