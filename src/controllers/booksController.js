@@ -4,7 +4,7 @@ class BookController{
 
   static listBooks = (req, res) => {
     books.find()
-        .populate('author') 
+        .populate('authors') 
         .exec()
         .then((books) => {
             res.status(200).json(books);
@@ -78,18 +78,6 @@ class BookController{
       res.status(500).send({ message: err.message });
     }
   };
-  
-  static listBooksByPublisher = async (req, res) => {
-    try {
-      const publisher = req.query.publisher;
-    
-      const books = await books.find({'publisher': publisher});
-    
-      res.status(200).send(books);
-    } catch (err) {
-      res.status(500).send(err.message);
-    }
-  }
 }
 
 export default BookController 
