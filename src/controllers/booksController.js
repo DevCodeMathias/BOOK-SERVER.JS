@@ -1,31 +1,31 @@
 import books from '../models/Books.js'
 
 class BookController{
-
-  static listBooks = (req, res) => {
-    books.find()
-        .populate('authors') 
-        .exec()
-        .then((books) => {
-            res.status(200).json(books);
-        })
-        .catch((err) => {
-            console.error(err);
-            res.status(500).json({ error: 'Error while fetching books' });
-        });
+//GET 
+static listBooks = (req, res) => {
+  books.find()
+      .populate('author') 
+      .exec()
+      .then((books) => {
+          res.status(200).json(books);
+      })
+      .catch((err) => {
+          console.error(err);
+          res.status(500).json({ error: 'Error while fetching books' });
+      });
 }
-
+//GET BY ID
   static listBookById = (req, res) => {
     const id = req.params.id;
-    books.findById(id, (err, book) => {
+    books.findById(id, (err, books) => {
       if(err) {
         return res.status(400).send({ message: `${err.message} - Book ID not found.` });
       }
-      res.status(200).send(book);
+      res.status(200).send(books);
     });
   };
   
-  
+//POST
   static registerBook = (req, res) => {
     let book = new books(req.body);
     book.save()
@@ -36,20 +36,7 @@ class BookController{
             res.status(500).send(`Error: ${err.message} - Book registration failure`);
         }); 
   }
-
-  static listBookById = async (req, res) => {
-    const id = req.params.id;
-    try {
-      const book = await books.findById(id);
-      if (!book) {
-        return res.status(404).send({ message: 'Book not found.' });
-      }
-      res.status(200).send(book);
-    } catch (err) {
-      res.status(400).send({ message: `${err.message} - Book ID not found.` });
-    }
-  };
-
+//PATCH
   static updateBook = (req, res) => {
     const id = req.params.id;
 
@@ -65,6 +52,7 @@ class BookController{
         res.status(500).send({ message: err.message });
       });
   }
+  //DELETET
   static deleteBook = async (req, res) => {
     const id = req.params.id;
   
@@ -81,3 +69,5 @@ class BookController{
 }
 
 export default BookController 
+
+
