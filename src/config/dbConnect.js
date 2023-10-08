@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-mongoose.connect("mongodb+srv://lauramathiaz:claro5mathias@cluster0.4hzpoew.mongodb.net/serverbook?")
+mongoose.connect(process.env.STRING_connection_DB)
 
 let db = mongoose.connection
 
