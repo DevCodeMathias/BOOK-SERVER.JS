@@ -2,28 +2,31 @@ import books from "../models/Books.js";
 
 class BookController{
 //GET 
-  static listBooks = (req, res) => {
-    books.find()
-      .populate("author") 
-      .exec()
-      .then((books) => {
-        res.status(200).json(books);
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).json({ error: "Error while fetching books" });
-      });
+  static listBooks = async(req, res) => {
+    try {
+      const booksData = await books.find().populate("author ").exec();
+      res.status(200).json(booksData);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Erro ao buscar os livros" });
+    }
   };
   
   //GET BY ID
-  static listBookById = (req, res) => {
-    const id = req.params.id;
-    books.findById(id, (err, books) => {
-      if(err) {
-        return res.status(400).send({ message: `${err.message} - Book ID not found.` });
+  static listBookById = async(req, res) => {
+    try {
+      const id = req.params.id;
+      const book = await books.findById(id);
+  
+      if (!book) {
+        return res.status(400).send({ message: `Livro com o ID ${id} não encontrado.` });
       }
-      res.status(200).send(books);
-    });
+  
+      res.status(200).send(book);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send({ error: "Erro ao buscar o livro" });
+    }
   };
   
   //POST

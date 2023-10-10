@@ -21,7 +21,7 @@ class AuthorController{
       res.status(500).send(`Error: ${err.message} - author registration failure`);
     }
   };
-  
+ 
   static listAuthorById = async (req, res) => { //get by id
     const id = req.params.id;
     try {
