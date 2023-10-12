@@ -1,19 +1,20 @@
 import books from "../models/Books.js";
 
+
 class BookController{
 //GET 
-  static listBooks = async(req, res) => {
+  static listBooks = async(req, res,next) => {
     try {
-      const booksData = await books.find().populate("author ").exec();
+      const booksData = await books.find().populate("author").exec();
       res.status(200).json(booksData);
     } catch (err) {
       console.error(err);
-      res.status(500).json({ error: "Error while searching for the books" });
+      next(err);
     }
   };
   
   //GET BY ID
-  static listBookById = async(req, res) => {
+  static listBookById = async(req, res, next) => {
     try {
       const id = req.params.id;
       const book = await books.findById(id);
@@ -23,26 +24,25 @@ class BookController{
       }
   
       res.status(200).send(book);
-    } catch (err) {
-      console.error(err); 
-      res.status(500).send({ error: "Error while searching for the books" });
+    } catch (err) { 
+      next(err);
     }
   };
   
   //POST
-  static registerBook = (req, res) => {
+  static registerBook = (req, res, next) => {
     let book = new books(req.body);
     book.save()
       .then((savedBook) => {
         res.status(201).send(savedBook.toJSON());
       })
       .catch((err) => {
-        res.status(500).send(`Error: ${err.message} - Book registration failure`);
+        next(err);
       }); 
   };
 
   //PATCH
-  static updateBook = (req, res) => {
+  static updateBook = (req, res, next) => {
     const id = req.params.id;
 
     books.findByIdAndUpdate(id, { $set: req.body })
@@ -54,12 +54,12 @@ class BookController{
         }
       })
       .catch((err) => {
-        res.status(500).send({ message: err.message });
+        next(err);
       });
   };
 
   //DELETET
-  static deleteBook = async (req, res) => {
+  static deleteBook = async (req, res, next ) => {
     const id = req.params.id;
   
     try {
@@ -69,7 +69,7 @@ class BookController{
       }
       res.status(200).send({ message: "Book removed successfully" });
     } catch (err) {
-      res.status(500).send({ message: err.message });
+      next(err); 
     }
   };
 }
