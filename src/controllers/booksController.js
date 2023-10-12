@@ -8,7 +8,7 @@ class BookController{
       res.status(200).json(booksData);
     } catch (err) {
       console.error(err);
-      res.status(500).json({ error: "Erro ao buscar os livros" });
+      res.status(500).json({ error: "Error while searching for the books" });
     }
   };
   
@@ -19,13 +19,13 @@ class BookController{
       const book = await books.findById(id);
   
       if (!book) {
-        return res.status(400).send({ message: `Livro com o ID ${id} não encontrado.` });
+        return res.status(400).send({ message: `The book with ID ${id} was not found.` });
       }
   
       res.status(200).send(book);
     } catch (err) {
-      console.error(err);
-      res.status(500).send({ error: "Erro ao buscar o livro" });
+      console.error(err); 
+      res.status(500).send({ error: "Error while searching for the books" });
     }
   };
   
