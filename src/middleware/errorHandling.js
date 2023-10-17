@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import BaseError from "../Err/baseErr.js";
 
 // eslint-disable-next-line no-unused-vars
 function errorHandling(err, req, res, next) {
@@ -10,7 +11,7 @@ function errorHandling(err, req, res, next) {
       .join(";");
     res.status(400).send(`The following errors were found: ${mensagensErro}`);
   } else {
-    res.status(500).send({ message: "Internal Server Error." });
+    new BaseError().sendResponse(res);
   }
 }
 
