@@ -1,3 +1,4 @@
+import notFound from "../Err/notfound.js";
 import authors from "../models/Author.js";
 
 
@@ -32,7 +33,7 @@ class AuthorController{
       if (authorResult !== null) {
         res.status(200).send(authorResult);
       } else {
-        res.status(404).send({message: "Author ID not found."});
+        next(new notFound("ID author not found"));
       }
     } catch (err) {
       next(err);
@@ -43,11 +44,8 @@ class AuthorController{
     try {
       const id = req.params.id;
       const authorUpdated = await authors.findByIdAndUpdate(id, { $set: req.body });
-      if (authorUpdated) {
-        res.status(200).send({ message: "author updated successfully", author: authorUpdated });
-      } else {
-        res.status(404).send({ message: "author not found" });
-      }
+      
+      res.status(200).send({ message: "author updated successfully", author: authorUpdated });
     } catch(err) {
       next(err);
     }
