@@ -50,11 +50,11 @@ project-root-directory
 │   ├── app.js
 │   ├── config 
 │   │   └── dbConfig.js
-|   ├── Err
-|   |    ├──badRequest.js
-|   |    ├──baseErr.js
-|   |    ├── notfound.js
-|   |    └──validationerr.js
+│   ├── Err
+│   │   ├──badRequest.js
+│   │   ├──baseErr.js
+│   │   ├── notfound.js
+│   │   └──validationerr.js
 │   ├── controllers
 │   │   ├── AuthoresController.js
 │   │   └── booksController.js
