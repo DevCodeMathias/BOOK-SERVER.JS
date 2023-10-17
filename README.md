@@ -42,14 +42,32 @@ Send a DELETE request to [http://localhost:3000/books/:id](http://localhost:3000
 Send a DELETE request to [http://localhost:3000/authors/:id](http://localhost:3000/authors/:id).
 
 ## Project Structure
-This project follows the MVC (Model-View-Controller) architectural pattern, which helps in organizing the codebase into separate components. Here's a brief overview of the project's structure:
+This project follows the MVC (Model-View-Controller), which helps in organizing the codebase into separate components. Here's a brief overview of the project's structure:
 
-- `routes.js`: Contains the route definitions and their respective controllers.
-- `booksController.js`: Control logic for book operations.
-- `authorsController.js`: Control logic for author operations.
-- `books.js`: Model and schema for books.
-- `author.js`: Model and schema for authors.
-- `DbConnect.js`: MongoDB connection configuration.
+```bash
+project-root-directory
+├── src
+│   ├── app.js
+│   ├── config 
+│   │   └── dbConfig.js
+│   ├── controllers
+│   │   ├── AuthoresController.js
+│   │   └── booksController.js
+│   ├── middleware
+│   │   ├── errorHandling.js
+│   │   └── Handler404.js
+│   ├── models
+│   │   ├── Author.js
+│   │   └── Books.js
+│   └── routes
+│       ├── index.js
+│       ├── booksRoutes.js
+│       └──authorsRoutes.js
+├── package.json
+├── .eslintrc.json
+├── Server.js
+└── README.md
+```
 
 ## JSON Format
 
