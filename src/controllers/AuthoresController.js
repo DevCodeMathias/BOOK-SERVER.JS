@@ -47,7 +47,7 @@ class AuthorController{
       
       res.status(200).send({ message: "author updated successfully", author: authorUpdated });
     } catch(err) {
-      next(err);
+      next(new notFound("ID author not found"));
     }
   };
 
@@ -55,12 +55,12 @@ class AuthorController{
     try {
       const id = req.params.id;
       const deletedauthor = await authors.findByIdAndDelete(id);
-      if (!deletedauthor) {
+      if (deletedauthor !== null) {
         return res.status(404).send({ message: "author not found." });
       }
       res.status(200).send({ message: "author removed successfully" });
     } catch (err) {
-      next(err);
+      next(new notFound("ID author not found"));
     }
   };
 }
