@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
-
+//databse schema config
 const bookSchema = new mongoose.Schema({
+  
   id: { type: String },
   title:{ 
     type: String, 
