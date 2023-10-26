@@ -16,6 +16,28 @@ class BookController{
       next(err);
     }
 };
+
+static byfilter = async (req, res, next)=>{
+  try {
+    let {publisher, title} = req.query;
+
+    const regex = new RegExp(title, "i");
+
+    const search = {}
+
+    if (publisher) search.publisher = publisher;
+    if (title) search.title = { $regex: title, $options: "i" };
+
+    const result = await  books.find({
+      "publisher":publisher,
+      "title": title
+    })
+    res.staus(200).send(result)
+        }
+  catch(err){
+    next(err)
+  }
+}
   
   //GET BY ID
   static listarLivroPorId = async (req, res, next) => {
