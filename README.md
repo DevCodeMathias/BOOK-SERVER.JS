@@ -12,34 +12,38 @@ To run this project, you'll need to have Node.js and MongoDB installed on your s
 4. Start the server with: `node server.js`
 ## Features
 
-### Listing Books and Authors:
+## Listing Books and Authors:
 
 - **Books:** [http://localhost:3000/books](http://localhost:3000/books)
 - **Authors:** [http://localhost:3000/authors](http://localhost:3000/authors)
 
-### Adding a Book:
+## Adding a Book:
 
 Send a POST request to [http://localhost:3000/books](http://localhost:3000/books) with the book details in JSON.
 
-### Adding an Author:
+## Adding an Author:
 
 Send a POST request to [http://localhost:3000/authors](http://localhost:3000/authors) with the author details in JSON.
 
-### Updating a Book:
+## Updating a Book:
 
 Send a PUT request to [http://localhost:3000/books/:id](http://localhost:3000/books/:id) with the updated book details.
 
-### Updating an Author:
+## Updating an Author:
 
 Send a PUT request to [http://localhost:3000/authors/:id](http://localhost:3000/authors/:id) with the updated author details.
 
-### Deleting a Book:
+## Deleting a Book:
 
 Send a DELETE request to [http://localhost:3000/books/:id](http://localhost:3000/books/:id).
 
-### Deleting an Author:
+## Deleting an Author:
 
 Send a DELETE request to [http://localhost:3000/authors/:id](http://localhost:3000/authors/:id).
+
+## Searching and Filtering Books:
+
+To search and filter books, send a GET request to [http://localhost:3000/books/search](http://localhost:3000/books/search).
 
 ## Project Structure
 This project follows the MVC (Model-View-Controller), which helps in organizing the codebase into separate components. Here's a brief overview of the project's structure:
@@ -63,7 +67,9 @@ project-root-directory
 │   │   └── Handler404.js
 │   ├── models
 │   │   ├── Author.js
-│   │   └── Books.js
+│   │   ├── Books.js
+│   │   ├──globalValidation.js
+│       └──index.js
 │   └── routes
 │       ├── index.js
 │       ├── booksRoutes.js
