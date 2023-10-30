@@ -105,6 +105,8 @@ This API uses JSON (JavaScript Object Notation) for data exchange. When interact
 
 You can use [Postman](https://www.postman.com/) to test the API endpoints. Import the provided Postman collection for easy testing.
 
+## .env File Configuration
+⚠️ Important: This project requires the setup of a .env file to manage sensitive environment variables, such as the MongoDB database connection string. We recommend users to configure this file with their own data.
 
 ## Contribution
 
