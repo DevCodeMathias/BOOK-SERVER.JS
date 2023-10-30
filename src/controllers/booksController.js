@@ -1,108 +1,100 @@
 import notFound from "../Err/notfound.js";
-import {books} from "../models/index.js";
+import { books } from "../models/index.js";
 
-
-class BookController{
-//GET 
-  static listBooks = async(req, res,next) => {
+class BookController {
+  // GET 
+  static listBooks = async (req, res, next) => {
     try {
       const booksData = await books.find()
-      .populate("author")
-      .exec();
+        .populate("author")
+        .exec();
 
       res.status(200).json(booksData);
     } catch (err) {
       console.error(err);
       next(err);
     }
-};
+  };
 
-static byfilter = async (req, res, next)=>{
-  try {
-    let {publisher, title} = req.query;
-
-    const regex = new RegExp(title, "i");
-
-    const search = {}
-
-    if (publisher) search.publisher = publisher;
-    if (title) search.title = { $regex: title, $options: "i" };
-
-    const result = await  books.find({
-      "publisher":publisher,
-      "title": title
-    })
-    res.staus(200).send(result)
-        }
-  catch(err){
-    next(err)
-  }
-}
-  
-  //GET BY ID
-  static listarLivroPorId = async (req, res, next) => {
+  static byfilter = async (req, res, next) => {
     try {
-      const id = req.params.id;
+      let { publisher, title } = req.query;
 
-      const livroResultado = await livros.findById(id)
-        .populate("autho", "name")
-        .exec();
+      const regex = new RegExp(title, "i");
 
-      if (livroResultado !== null) {
-        res.status(200).send(livroResultado);
-      } else {
-        next(new NaoEncontrado("Id do livro não localizado."));
-      }
-    } catch (erro) {
-      next(erro);
+      const search = {};
+
+      if (publisher) search.publisher = publisher;
+      if (title) search.title = { $regex: regex, $options: "i" };
+
+      const result = await books.find(search);
+      res.status(200).send(result);
+    } catch (err) {
+      next(err);
     }
   };
+
+  // GET BY ID
+  static listBookById = async (req, res, next) => {
+    try {
+      const id = req.params.id;
   
-  //POST
-  static registerBook =  async (req, res, next) => {
-    try{
-      let book = new books(req.body);
-      const resultBooks = await book.save()
-      
-      res.status(201).send(savedBook.toJSON());
-    }catch(err) {
-      next(err)
-    }; 
+      const bookResult = await books.findById(id)
+        .populate("author", "name")
+        .exec();
+  
+      if (bookResult !== null) {
+        res.status(200).send(bookResult);
+      } else {
+        next(new notFound("Book ID not found."));
+      }
+    } catch (error) {
+      next(error);
+    }
   };
 
-  //PATCH
+  // POST
+  static registerBook = async (req, res, next) => {
+    try {
+      let book = new books(req.body);
+      const savedBook = await book.save();
+
+      res.status(201).send(savedBook.toJSON());
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  // PATCH
   static updateBook = async (req, res, next) => {
-    try{
+    try {
       const id = req.params.id;
-      const bookResult = await  books.findByIdAndUpdate(id, { $set: req.body });
-     
-      if (bookResult !== null) {
+      const bookUpdated = await books.findByIdAndUpdate(id, { $set: req.body }, { new: true });
+
+      if (bookUpdated !== null) {
         res.status(200).send({ message: "Book updated successfully", book: bookUpdated });
-      }else {
+      } else {
         next(new notFound("Book not found"));
       }
-    }catch(err){
-        next(err);
-      };
+    } catch (err) {
+      next(err);
+    }
   };
 
-  //DELETET
-  static deleteBook = async (req, res, next ) => {
-    
+  // DELETE
+  static deleteBook = async (req, res, next) => {
     try {
       const id = req.params.id;
       const deletedBook = await books.findByIdAndDelete(id);
-      if (deletedBook !== null ) {
-        res.status(200).send({ message: "Book removed successfully" })
-      }else{
-        next(new notFound("Book not found."))
+      if (deletedBook !== null) {
+        res.status(200).send({ message: "Book removed successfully" });
+      } else {
+        next(new notFound("Book not found."));
       }
     } catch (err) {
-      next(err); 
+      next(err);
     }
   };
 }
 
-export default BookController; 
-
-
+export default BookController;

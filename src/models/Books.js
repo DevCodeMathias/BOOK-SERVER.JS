@@ -19,13 +19,13 @@ const bookSchema = new mongoose.Schema({
   pageCount: { 
     type: Number,
     validate:{
-      validator: (valor) =>{
-      return valor >= 10 && valor <= 5--
+      validator: (value) =>{
+        return value >= 10 && value <= 5000;
       },
       message:"The nomber of pager must be between 10 and 5000 "
     } 
-   }
   }
+}
 );
 
 let books = mongoose.model("mybook",bookSchema);
