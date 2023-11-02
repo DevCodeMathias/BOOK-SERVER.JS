@@ -1,5 +1,5 @@
 import notFound from "../Err/notfound.js";
-import { books } from "../models/index.js";
+import { authors, books } from "../models/index.js";
 
 class BookController {
   // GET 
@@ -16,24 +16,22 @@ class BookController {
     }
   };
 
-  static byfilter = async (req, res, next) => {
-    try {
-      let { publisher, title } = req.query;
+  static listByFilter = async (req, res, next) => {
+    try{
+      const search = await processSearch(req.query);
 
-      const regex = new RegExp(title, "i");
+      console.log("Search object:", search); 
+  
+      const booksResult= await books.find(search);
 
-      const search = {};
-
-      if (publisher) search.publisher = publisher;
-      if (title) search.title = { $regex: regex, $options: "i" };
-
-      const result = await books.find(search);
-      res.status(200).send(result);
-    } catch (err) {
+      res.status(200).send(booksResult);
+  
+    }catch(err){
       next(err);
+      console.log(err);
     }
   };
-
+ 
   // GET BY ID
   static listBookById = async (req, res, next) => {
     try {
@@ -95,6 +93,29 @@ class BookController {
       next(err);
     }
   };
+}
+async function processSearch(params) {
+  let { publisher, title, minPages,maxPages,authorName } = params;
+  
+  const search = {};
+
+  if(publisher) search.publisher = publisher;
+  if(title) search.title = { $regex: title, $options: "i" };
+
+  if(minPages || maxPages)search.numberpages = {};
+
+  if(minPages)search.numberpages.$gte=minPages;
+  if(maxPages)search.numberpages.$lte=maxPages;
+  
+  if (authorName) {
+    const author = await authors.findOne({ name: authorName });
+    const authorId = author._id;
+    search.author = authorId;
+  }
+
+  //console.log("Search object:", search);
+  const result = search;
+  return result;
 }
 
 export default BookController;

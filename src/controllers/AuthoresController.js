@@ -20,7 +20,9 @@ class AuthorController{
       const savedAuthor = await author.save();
       res.status(201).send(savedAuthor.toJSON());
     } catch (err) {
+      console.log(err);
       next(err);
+
     }
   };
 
