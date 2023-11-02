@@ -43,7 +43,7 @@ Send a DELETE request to [http://localhost:3000/authors/:id](http://localhost:30
 
 ## Searching and Filtering Books:
 
-To search and filter books, send a GET request to [http://localhost:3000/books/search](http://localhost:3000/books/search).
+To search and filter books, send a GET request to [http://localhost:3000/books/search](http://localhost:3000/books/search? (the req )).
 
 ## Project Structure
 This project follows the MVC (Model-View-Controller), which helps in organizing the codebase into separate components. Here's a brief overview of the project's structure:
@@ -64,12 +64,13 @@ project-root-directory
 │   │   └── booksController.js
 │   ├── middleware
 │   │   ├── errorHandling.js
-│   │   └── Handler404.js
+│   │   ├── Handler404.js
+│       └── pagination.js
 │   ├── models
 │   │   ├── Author.js
 │   │   ├── Books.js
 │   │   ├──globalValidation.js
-│       └──index.js
+│   │    └──index.js
 │   └── routes
 │       ├── index.js
 │       ├── booksRoutes.js
