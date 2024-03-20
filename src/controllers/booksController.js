@@ -2,6 +2,8 @@
 import notFound from "../Err/notfound.js";
 import { authors, books } from "../models/index.js";
 
+let FavBookStack = [ ]
+
 class BookController {
   // GET 
   static listBooks = async (req, res, next) => {
@@ -101,9 +103,35 @@ class BookController {
       next(err);
     }
   };
+
+//adicionar a lista de favoritos  
+
+static PostBookFavList = async(req, res, next) => {
+  try {
+  
+    const bookName = req.body.name;
+    const foundBook = await books.findOne({ "title": bookName });
+
+    if (foundBook === null) {
+      res.status(404).send({ message: "O livro não está em nosso banco de dados." });
+    } else {
+      FavBookStack.push(foundBook);
+      res.status(200).send({ message: "Livro adicionado aos favoritos com sucesso." });
+    }
+  } catch (err) {
+    next(err);
+  }
 }
 
-
+static GetFavBooks  = async(req,res,next)=>{
+  try{
+    res.status.send({favorites: favoritesList})
+  }catch(err){
+    next(err)
+  }
+}
+}
+//Helper Fucntion 
 async function processSearch(params) {
 
   let { publisher, title, minPages,maxPages,authorName } = params;
@@ -129,4 +157,6 @@ async function processSearch(params) {
   return search;
 }
 
+
 export default BookController;
+
