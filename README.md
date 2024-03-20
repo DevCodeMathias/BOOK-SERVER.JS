@@ -23,6 +23,8 @@ To run this project, you'll need to have Node.js and MongoDB installed on your s
 | Delete Book                | [http://localhost:3000/books/:id](http://localhost:3000/books/:id)   | Send a DELETE request to delete a book               |
 | Delete Author              | [http://localhost:3000/authors/:id](http://localhost:3000/authors/:id) | Send a DELETE request to delete an author            |
 | Search and Filtering Books | [http://localhost:3000/books/search](http://localhost:3000/books/search? (the req )) | Send a GET request to search and filter books       |
+| Add book to favorite List       | [http://localhost:3000/books/AddFavoriteList](http://localhost:3000/books/AddFavoriteList) | Send a PUSH  to favorit List 
+| Get Favorite              | [http://localhost:3000//books/AddFavoriteList](http://localhost:3000/books/AddFavoriteList) | Endpoint to list favotire List             |
 
 
 ## Project Structure
