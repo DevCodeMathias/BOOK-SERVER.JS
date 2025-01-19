@@ -6,18 +6,19 @@ let FavBookStack = [ ]
 
 class BookController {
   // GET 
-  static listBooks = async (req, res, next) => {
+  static listBooks = async (req, res) => {
     try {
-      const searchbooks = books.find();
-
-      req.result = searchbooks;
-
-      next();
+      const searchbooks = await books.find();  
+      
+      console.log("Livros encontrados:", searchbooks);
+  
+      res.json(searchbooks);  
     } catch (err) {
-      console.error(err);
-      next(err);
+      console.error("Erro ao buscar livros:", err);
+      res.status(500).json({ message: 'Erro ao buscar livros', error: err.message });
     }
   };
+  
 
   //Get - filter
   static listByFilter = async (req, res, next) => {
