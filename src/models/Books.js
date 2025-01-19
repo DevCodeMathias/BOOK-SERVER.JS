@@ -2,13 +2,13 @@ import mongoose from "mongoose";
 //databse schema config
 const bookSchema = new mongoose.Schema({
   
-  id: { type: String },
+  id: { type: mongoose.Schema.Types.ObjectId},
   title:{ 
     type: String, 
     required: [true, "The tittle is required" ]
   },
   author:{ 
-    type: mongoose.Schema.Types.ObjectId, 
+    type: String, 
     ref: "authors", 
     required: [true,"The author is required" ]
   },
